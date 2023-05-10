@@ -14,7 +14,7 @@ defmodule GracefulGenServer do
   @optional_callbacks on_msg: 2
 
   defmacro __using__(start_opts) do
-    quote do
+    quote location: :keep, bind_quoted: [start_opts: start_opts] do
       @behaviour GracefulGenServer
       use GenServer
 
