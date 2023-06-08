@@ -1,6 +1,33 @@
 defmodule GracefulGenServer do
   @moduledoc """
-    Handles init and terminate
+  Handles init and terminate of genserver.
+
+  This wraps GenServer callbacks to provide the functionality.
+    - on_init wraps init callback
+    - on_exit wraps terminate callback
+    - on_msg wraps handle_info callback
+
+  The rest of GenServer callbacks are free to use
+
+  ## Examples
+      defmodule MyApp.Server do
+        use GracefulGenServer
+
+        def on_init(init_args) do
+          ...
+          initial_state
+        end
+
+        # optional
+        def on_msg(info_msg, state) do
+          ...
+          {:noreply, new_state} # or any legit handle_info/2 response
+        end
+
+        def on_exit(reason, state) do
+          ...
+        end
+      end
   """
 
   @callback on_init(args :: any) :: any
