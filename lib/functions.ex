@@ -75,22 +75,22 @@ defmodule GracefulGenServer.Functions do
 
   defp log_starting(args, who) do
     if who do
-      ["starting ", inspect(who), " ", inspect(args, pretty: true)]
-      |> Logger.info()
+      [inspect(who), " is starting w/ args: ", inspect(args, pretty: true)]
+      |> Logger.debug()
     end
   end
 
   defp log_started(state, who) do
     if who do
-      ["started ", inspect(who), " ", inspect(state, pretty: true)]
+      [inspect(who), " started w/ state: ", inspect(state, pretty: true)]
       |> Logger.debug()
     end
   end
 
   defp log_exiting({from, reason}, who) do
     if who do
-      ["exiting ", inspect(who), " from ", inspect(from), ": ", inspect(reason, pretty: true)]
-      |> Logger.info()
+      [inspect(who), " terminated from ", inspect(from), " w/ reason: ", inspect(reason, pretty: true)]
+      |> Logger.debug()
     end
   end
 end
