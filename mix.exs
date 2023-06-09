@@ -4,7 +4,7 @@ defmodule GracefulGenserver.MixProject do
   def project do
     [
       app: :graceful_genserver,
-      version: "0.1.3",
+      version: "0.1.4",
       elixir: "~> 1.14",
       start_permanent: Mix.env() == :prod,
       deps: deps(),

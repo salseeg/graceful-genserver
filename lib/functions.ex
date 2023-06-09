@@ -82,7 +82,7 @@ defmodule GracefulGenServer.Functions do
 
   defp log_started(state, who) do
     if who do
-      [inspect(who), " started w/ state: ", inspect(state, pretty: true)]
+      [inspect(who), " started w/ state: ", inspect(state, pretty: true, limit: 7)]
       |> Logger.debug()
     end
   end
