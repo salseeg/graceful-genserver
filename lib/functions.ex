@@ -27,7 +27,7 @@ defmodule GracefulGenServer.Functions do
     - `:as` - optional name, triggering logging
   """
   def terminate(reason, state, opts) do
-    log_exiting({reason, :terminate}, opts[:as])
+    log_exiting({:terminate, reason}, opts[:as])
 
     if is_function(opts[:on_exit]) do
       opts[:on_exit].(reason, state)
@@ -47,6 +47,9 @@ defmodule GracefulGenServer.Functions do
   def handle_info(msg, state, opts) do
     case msg do
       {:EXIT, from, _} when is_port(from) ->
+        state |> noreply()
+
+      {:EXIT, _from, :normal} ->
         state |> noreply()
 
       {:EXIT, from, reason} ->
@@ -89,7 +92,13 @@ defmodule GracefulGenServer.Functions do
 
   defp log_exiting({from, reason}, who) do
     if who do
-      [inspect(who), " terminated from ", inspect(from), " w/ reason: ", inspect(reason, pretty: true)]
+      [
+        inspect(who),
+        " terminated from ",
+        inspect(from),
+        " w/ reason: ",
+        inspect(reason, pretty: true)
+      ]
       |> Logger.debug()
     end
   end
