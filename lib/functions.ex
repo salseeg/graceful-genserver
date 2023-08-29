@@ -78,7 +78,7 @@ defmodule GracefulGenServer.Functions do
 
   defp log_starting(args, who) do
     if who do
-      [inspect(who), " is starting w/ args: ", inspect(args, pretty: true)]
+      [inspect(who), " is starting w/ args: ", inspect(args, pretty: true, limit: 17)]
       |> Logger.debug()
     end
   end
